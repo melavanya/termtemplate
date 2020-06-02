@@ -1,0 +1,75 @@
+<style>
+  table {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .set-left {
+    float: right;
+  }
+</style>
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-title>
+      <span>Termination Process: {{empName}}</span><button mat-raised-button class="set-left"
+        (click)="NothanksClick()">X</button>
+    </mat-card-title>
+    <mat-card-subtitle>
+      Badge ID - {{empID}}
+    </mat-card-subtitle>
+    <mat-card-content>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox> -->
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="onCheck($event, row)"
+              [checked]="row.select" [disabled]="row.select"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stepDesc">
+          <th mat-header-cell *matHeaderCellDef>Step Desc</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.stepDesc}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="activity">
+          <th mat-header-cell *matHeaderCellDef>Activity</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.activity}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="completedBy">
+          <th mat-header-cell *matHeaderCellDef>CompletedBy</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.completedBy}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary"
+        (click)="onSubmit()">Submit</button>
+        <button *ngIf="login === 'SUPER' && status === 'Complete'" mat-raised-button color="warn"
+        (click)="onComplete()">Sign Off</button>
+
+    </mat-card-actions>
+  </mat-card>
+</mat-dialog-content>
