@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { EmployeeData, EmployeeDetails, TerminationProcessDetils, StepDetails, StepData } from './table-data';
 import { Observable, of } from 'rxjs';
+import * as lod from 'lodash';
+import { IfStmt } from '@angular/compiler';
 
 
 @Injectable({
@@ -30,23 +32,42 @@ export class AppService {
       }
    ]
    }
-
-  getEmployees(): Observable<EmployeeDetails[]> {
-    this.employeeData.forEach(employee => {
-      this.terminationProcessDetails.forEach(empDetail => {
-        if (employee.empID === empDetail.empID) {
-          if (empDetail.stepID.length !== 0) {
-            employee.status.status = 'In Progress';
-            employee.status.color = 'primary';
-          }
-          if (empDetail.stepID.length === this.stepData.length) {
-            employee.status.status = 'Complete';
-            employee.status.color = 'accent';
-          }
-        }
-      });
+   getEmployees(): Observable<EmployeeDetails[]> {
+    let HRSteps = [];
+    let ITSteps = [];
+    this.stepData.forEach(step => {
+      step.dept === 'IT' ? ITSteps.push(step.stepID) : HRSteps.push(step.stepID);
     });
-    
+    this.terminationProcessDetails.forEach(employee => {
+      if (lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort())) {
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'Complete';
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'accent';
+      } else if(employee.stepID.filter(item => HRSteps.includes(item)).length !==0) {
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'In Progress';
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'primary';
+      } else {
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'Initiated';
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'black';
+      }
+      if (lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort())) {
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'Complete';
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'accent';
+      } else if(employee.stepID.filter(item => ITSteps.includes(item)).length !==0){
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'In Progress';
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'primary';
+      } else {
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'Initiated';
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'black';
+      }
+      if (lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort())
+        && lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort())) {
+          this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.status = 'Complete';
+          this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.color = 'accent';
+      } else if (employee.stepID.filter(item => ITSteps.includes(item)).length !== 0 || employee.stepID.filter(item => HRSteps.includes(item)).length !== 0) {
+        this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.status = 'In progress';
+          this.employeeData[lod.findKey(this.employeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.color = 'primary';
+      }
+    });
     return of(this.employeeData);
   }
 
@@ -62,6 +83,9 @@ export class AppService {
       }
     });
     return of(steps);
+  }
+  getAllTerminationProcessDetails(): Observable<TerminationProcessDetils[]> {
+    return of(this.terminationProcessDetails);
     
   }
   saveTerminationProcessDetails(data) {

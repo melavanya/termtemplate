@@ -45,6 +45,7 @@ export class Temp2Page implements OnInit {
     this.createTable();
   }
   createTable() {
+    this.loginStepDetails = [];
     this.appService.getEmployees().subscribe(employees => this.employees = employees);
     this.appService.getStepDetails().subscribe(stepDetails => this.allStepDetails = stepDetails);
 
@@ -56,7 +57,6 @@ export class Temp2Page implements OnInit {
           this.loginStepDetails.push(step);
         }
       });
-     
     }
     this.dataSource1.data = this.employees;
     this.dataSource1.paginator = this.paginator1;
@@ -82,6 +82,7 @@ export class Temp2Page implements OnInit {
     }
   }
   selectedRow(row) {
+    this.selectedSteps = [];
     this.expandedElement = this.expandedElement === row ? null : row;
     this.appService.getTerminationProcessDetails(row.empID).subscribe(result => {
       this.loginStepDetails.forEach(step => {
@@ -102,6 +103,7 @@ export class Temp2Page implements OnInit {
   }
  
   onCheck(event, row) {
+   
     if (event.checked) {
       this.selectedSteps.push(row.stepID)
     } else {
@@ -113,7 +115,7 @@ export class Temp2Page implements OnInit {
     let data = {
       empID: row.empID,
       empName: row.empName,
-      stepID: this.selectedSteps,
+      stepID: this.selectedSteps.sort(),
       completedBy: '',
       activity: (new Date().getMonth() + 1) + '/' +  new Date().getDate() + '/' + new Date().getFullYear() + ' ' +  new Date().getHours() + ':' +  new Date().getMinutes()
 
