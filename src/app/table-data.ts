@@ -19,7 +19,7 @@ export interface TerminationProcessDetils {
  }
   
 export const EmployeeData: EmployeeDetails[] = [
-    { empName: 'Marleen Simmons', empID: 909100, empJobTitle: 'Supervisor', empReportsTo: 'Derek Fogge', empEndDate: 'June 19, 2020', reason: 'Resignation', SUPER: { status: 'Initiated', color: 'black'}, IT: { status:'Initiated',color:'black'},HR: {status:'Initiated',color:'black'} },
+    { empName: 'Marleen Matlin', empID: 909100, empJobTitle: 'Supervisor', empReportsTo: 'Derek Fogge', empEndDate: 'June 19, 2020', reason: 'Resignation', SUPER: { status: 'Initiated', color: 'black'}, IT: { status:'Initiated',color:'black'},HR: {status:'Initiated',color:'black'} },
     { empName: 'Asher Woods', empID: 919121, empJobTitle: 'Manager', empReportsTo: 'Nicolas Contreas', empEndDate: 'June 30, 2020',  reason: 'Job Abandonment',SUPER: { status: 'Initiated', color: 'black'}, IT: { status:'Initiated',color:'black'},HR: {status:'Initiated',color:'black'} },
     { empName: 'Olivia Taylor', empID: 903451, empJobTitle: 'Lead', empReportsTo: 'Edgar Jones', empEndDate: 'June 15, 2020',  reason: 'Resignation',SUPER: { status: 'Initiated', color: 'black'}, IT: { status:'Initiated',color:'black'},HR: {status:'Initiated',color:'black'} },
     { empName: 'Jasper Kim', empID: 958761, empJobTitle: 'Tech2', empReportsTo: 'Julie Cetoute', empEndDate: 'June 17, 2020',  reason: 'Resignation',SUPER: { status: 'Initiated', color: 'black'}, IT: { status:'Initiated',color:'black'},HR: {status:'Initiated',color:'black'} },
