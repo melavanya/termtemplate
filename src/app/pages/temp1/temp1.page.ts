@@ -13,7 +13,7 @@ import { AppService } from 'src/app/app.service';
 })
 export class Temp1Page implements OnInit {
 
-  displayedColumns: string[] = ['empName', 'empID', 'empJobTitle', 'empReportsTo', 'empEndDate', 'status'];
+  displayedColumns: string[] = ['empName', 'empID', 'empJobTitle', 'empReportsTo', 'empEndDate','reason', 'status'];
   dataSource = new MatTableDataSource<EmployeeDetails>();
   login: string = 'HR';
   employees: EmployeeDetails[] = [];
@@ -158,11 +158,11 @@ export class DetailsModal {
       completedBy: '',
       activity: (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + new Date().getFullYear() + ' ' + new Date().getHours() + ':' + new Date().getMinutes()
     };
-    this.appService.saveTerminationProcessDetails(data).subscribe(result => { });
+    this.appService.saveTerminationProcessDetails(data);
     this.dialogRef.close();
   }
   onComplete() {
-    this.appService.completeTerminationProcessDetails(this.empID).subscribe(result => { });
+    this.appService.completeTerminationProcessDetails(this.empID);
     this.dialogRef.close();
   }
 }

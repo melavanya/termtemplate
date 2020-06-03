@@ -99,7 +99,7 @@ export class AppService {
     if (!present) {
       this.terminationProcessDetails.push(data);
     }
-    return this.getEmployees();
+    return;
   }
 
   completeTerminationProcessDetails(empID) {
@@ -113,6 +113,6 @@ export class AppService {
         this.employeeData.splice(index, 1);
       }
     });
-    return this.getEmployees();
+    return;
   }
 }

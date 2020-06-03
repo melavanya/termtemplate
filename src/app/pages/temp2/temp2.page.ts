@@ -22,7 +22,7 @@ export class Temp2Page implements OnInit {
   @ViewChild('paginator1', { static: true }) paginator1: MatPaginator;
   @ViewChild('paginator2', {static: true }) paginator2: MatPaginator;
 
-  displayedColumns: string[] = ['empName', 'empID', 'empJobTitle', 'empReportsTo','empEndDate'];
+  displayedColumns: string[] = ['empName', 'empID', 'empJobTitle', 'empReportsTo','reason','empEndDate'];
   dataSource1 = new MatTableDataSource<EmployeeDetails>();
   login: string = 'HR';
   employees: EmployeeDetails[] = [];
@@ -71,14 +71,14 @@ export class Temp2Page implements OnInit {
     this.expandedElement = null;
     if (this.login === 'SUPER') {
       this.loginStepDetails = this.allStepDetails;
-      this.displayedColumns = ['empName', 'empID', 'empJobTitle', 'empReportsTo','empEndDate','status'];
+      this.displayedColumns = ['empName', 'empID', 'empJobTitle', 'empReportsTo','empEndDate','reason','status'];
     } else {
       this.allStepDetails.forEach(step => {
         if (step.dept === this.login) {
           this.loginStepDetails.push(step);
         }
       });
-      this.displayedColumns = ['empName', 'empID', 'empJobTitle', 'empReportsTo','empEndDate'];
+      this.displayedColumns = ['empName', 'empID', 'empJobTitle', 'empReportsTo','reason','empEndDate'];
     }
   }
   selectedRow(row) {
@@ -120,10 +120,10 @@ export class Temp2Page implements OnInit {
       activity: (new Date().getMonth() + 1) + '/' +  new Date().getDate() + '/' + new Date().getFullYear() + ' ' +  new Date().getHours() + ':' +  new Date().getMinutes()
 
     };
-    this.appService.saveTerminationProcessDetails(data).subscribe(result => this.createTable());
+    this.appService.saveTerminationProcessDetails(data);
   }
   onComplete(empID) {
     this.expandedElement = null;
-    this.appService.completeTerminationProcessDetails(empID).subscribe(result => this.createTable());
+    this.appService.completeTerminationProcessDetails(empID);
   }
 }
