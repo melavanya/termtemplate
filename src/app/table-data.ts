@@ -45,22 +45,23 @@ export interface StepDetails {
     stepID: Number;
     stepDesc: string;
     dept: string;
+    active: boolean;
 }
 export const StepData: StepDetails[] = [
-    { stepID: 1, stepDesc: 'Disable Badge', dept:'HR', select:false },
-    { stepID: 2, stepDesc: 'Deactivate in Epicor', dept: 'HR', select:false },
-    { stepID: 3, stepDesc: 'Create open position', dept: 'HR', select:false },
-    { stepID: 4, stepDesc: 'Retrieve Equipment', dept: 'HR' , select:false},
-    { stepID: 5, stepDesc: 'Free up Locker', dept: 'HR', select:false },
-    { stepID: 6, stepDesc: 'Retrieve Badge', dept: 'HR', select:false },
-    { stepID: 7, stepDesc: 'Retrieve clear bag', dept: 'HR', select:false },
-    { stepID: 8, stepDesc: 'Sign release form', dept: 'HR' , select:false},
-    { stepID: 9, stepDesc: 'Exit Interview', dept: 'HR', select:false },
-    { stepID: 10, stepDesc: 'Disable Active Directory', dept: 'IT', select:false },
-    { stepID: 11, stepDesc: 'Disable Email/Drive access', dept: 'IT', select:false },
-    { stepID: 12, stepDesc: 'Delete phone data', dept: 'IT', select:false },
-    { stepID: 13, stepDesc: 'Backup laptop data', dept: 'IT' , select:false},
-    { stepID: 14, stepDesc: 'Backup email', dept: 'IT', select:false },
-    { stepID: 15, stepDesc: 'Reassign drive docs', dept: 'IT', select:false },
-    { stepID: 16, stepDesc: 'Delete bugzilla account', dept: 'IT', select:false}
+    { stepID: 1, stepDesc: 'Disable Badge', dept:'HR', select:false, active:true },
+    { stepID: 2, stepDesc: 'Deactivate in Epicor', dept: 'HR', select:false, active: true },
+    { stepID: 3, stepDesc: 'Create open position', dept: 'HR', select:false, active: true },
+    { stepID: 4, stepDesc: 'Retrieve Equipment', dept: 'HR' , select:false, active: true},
+    { stepID: 5, stepDesc: 'Free up Locker', dept: 'HR', select:false, active: true },
+    { stepID: 6, stepDesc: 'Retrieve Badge', dept: 'HR', select:false, active: true },
+    { stepID: 7, stepDesc: 'Retrieve clear bag', dept: 'HR', select:false, active: true },
+    { stepID: 8, stepDesc: 'Sign release form', dept: 'HR' , select:false, active: true},
+    { stepID: 9, stepDesc: 'Exit Interview', dept: 'HR', select:false, active: true },
+    { stepID: 10, stepDesc: 'Disable Active Directory', dept: 'IT', select:false, active: true },
+    { stepID: 11, stepDesc: 'Disable Email/Drive access', dept: 'IT', select:false, active: true },
+    { stepID: 12, stepDesc: 'Delete phone data', dept: 'IT', select:false, active: true },
+    { stepID: 13, stepDesc: 'Backup laptop data', dept: 'IT' , select:false, active: true},
+    { stepID: 14, stepDesc: 'Backup email', dept: 'IT', select:false, active: true },
+    { stepID: 15, stepDesc: 'Reassign drive docs', dept: 'IT', select:false, active: true },
+    { stepID: 16, stepDesc: 'Delete bugzilla account', dept: 'IT', select:false, active: true}
 ];

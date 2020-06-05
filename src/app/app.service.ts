@@ -72,7 +72,7 @@ export class AppService {
   }
 
   getStepDetails(): Observable<StepDetails[]> {
-    return of(this.stepData);
+    return of(this.stepData.filter(step => step.active));
   }
 
   getTerminationProcessDetails(empID: number): Observable<any> {
