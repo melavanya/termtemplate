@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { Temp2PageRoutingModule } from './temp2-routing.module';
 
-import { Temp2Page } from './temp2.page';
+import { Temp2Page, DetailsModal } from './temp2.page';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
@@ -19,7 +19,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from "@angular/material/input";
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -40,8 +42,10 @@ import {MatRadioModule} from '@angular/material/radio';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule,
+    MatDialogModule
   ],
-  declarations: [Temp2Page]
+  declarations: [Temp2Page, DetailsModal]
 })
 export class Temp2PageModule {}

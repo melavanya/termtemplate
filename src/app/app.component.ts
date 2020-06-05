@@ -11,17 +11,17 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public alwaysPages = [
     {
-   title: 'Template1',
-   url: '/temp1',
-   icon: 'today'
+      title: 'Admin View',
+      url: '/temp1',
+      icon: 'today'
     },
     {
-      title: 'Template2',
+      title: 'HR/IT View',
       url: '/temp2',
       icon: 'today'
-     }
+    }
   ];
-  
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

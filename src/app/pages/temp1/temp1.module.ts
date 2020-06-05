@@ -20,7 +20,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ReactiveFormsModule,
     MatButtonModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule
   ],
   declarations: [Temp1Page, DetailsModal]
 })

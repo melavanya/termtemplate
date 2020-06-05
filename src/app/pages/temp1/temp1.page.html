@@ -3,25 +3,68 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Template One</ion-title>
+    <ion-title>Admin View</ion-title>
   </mat-toolbar>
 </ion-header>
 
 <ion-content>
   <mat-card class="card">
     <mat-card-title>
-    <h2>Login: </h2>
-    <mat-radio-group [(ngModel)]="login" (change)="loginChange()">
-      <mat-radio-button class="login-margin" value="HR">HR</mat-radio-button>
-      <mat-radio-button class="login-margin" value="IT">IT</mat-radio-button>
-      <mat-radio-button class="login-margin" value="SUPER">Super</mat-radio-button>
-    </mat-radio-group>
+    <h2>Admin Dashboard </h2>
 </mat-card-title>
 
     <mat-card-content>
 
       <mat-tab-group>
-        <mat-tab label="Termination Steps"> Content 1 </mat-tab>
+        <mat-tab label="Termination Steps"> 
+          <style>
+            table {
+              width: 100%;
+            }
+            .mat-form-field {
+              width: 100%;
+            }
+          </style>
+          <mat-dialog-content >
+              <mat-card>
+                  <mat-card-title>
+                      <span>Select Modules</span><button mat-raised-button (click)="NothanksClick()">X</button>
+                  </mat-card-title>
+                  <mat-card-content>
+          
+                    <mat-form-field>
+                      <mat-label>Search Module</mat-label>
+                      <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+                    </mat-form-field>
+          
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          
+                      <ng-container matColumnDef="module">
+                        <th mat-header-cell *matHeaderCellDef>Modules</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{element.CommodityName}}
+                         </td>
+                      </ng-container>
+          
+          
+                      <ng-container matColumnDef="set">
+                        <th mat-header-cell *matHeaderCellDef>Assign</th>
+                        <td mat-cell *matCellDef="let element">
+                          <mat-slide-toggle class="example-margin" [checked]="element.RelationFlag" (change)="questionModulesMap(element.CommodityID,$event)"></mat-slide-toggle>
+                        </td>
+                      </ng-container>
+          
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+          
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          
+                  </mat-card-content>
+              </mat-card>
+          </mat-dialog-content>
+          
+        </mat-tab>
         <mat-tab label="Termination Request"> Content 2 </mat-tab>
         <mat-tab label="Termination Process"> <mat-form-field>
           <mat-label>Search Employee</mat-label>
