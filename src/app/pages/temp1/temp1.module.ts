@@ -5,7 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { Temp1PageRoutingModule } from './temp1-routing.module';
-import { Temp1Page, DetailsModal } from './temp1.page';
+import { Temp1Page } from './temp1.page';
+import { TerminationProcessComponent, DetailsModal } from './termination-process/termination-process.component';
+import { TerminationRequestComponent, ApprovalModal } from './termination-request/termination-request.component';
+import { TerminationStepsComponent, AddNewStepModal } from './termination-steps/termination-steps.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
@@ -21,7 +24,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+
+
 
 
 @NgModule({
@@ -45,8 +55,23 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatButtonModule,
     MatRadioModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule, 
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatSelectModule
   ],
-  declarations: [Temp1Page, DetailsModal]
+  providers: [  
+    MatDatepickerModule,
+    MatNativeDateModule  
+  ],
+  declarations: [Temp1Page,
+    DetailsModal,
+    ApprovalModal,
+    AddNewStepModal,
+    TerminationProcessComponent,
+    TerminationRequestComponent,
+    TerminationStepsComponent]
 })
 export class Temp1PageModule {}

@@ -11,13 +11,18 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public alwaysPages = [
     {
+      title: 'Request Form',
+      url: '/request',
+      icon: 'today'
+    },
+    {
       title: 'Admin View',
-      url: '/temp1',
+      url: '/admin',
       icon: 'today'
     },
     {
       title: 'HR/IT View',
-      url: '/temp2',
+      url: '/HR/IT',
       icon: 'today'
     }
   ];

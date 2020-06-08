@@ -18,11 +18,11 @@ export class Temp3Page implements OnInit {
 
   constructor(public appService: AppService, private formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
     this.requestForm = formBuilder.group({
-      supName: new FormControl(),
+      empReportsTo: new FormControl(),
       empName: new FormControl(),
       empID: new FormControl(),
       reason: new FormControl(),
-      endDate: new FormControl()
+      empEndDate: new FormControl()
     });
    }
 
@@ -38,12 +38,13 @@ export class Temp3Page implements OnInit {
     return day !== 0 && day !== 6;
   }
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value;
     return this.options.filter(option => option.indexOf(filterValue) === 0);
   }
   sendRequest() {
     let data = this.requestForm.value;
-    data.endDate = this.requestForm.value.endDate.toDateString();
+    data.empEndDate = this.requestForm.value.empEndDate.toDateString();
+    data.approved = 'requested';
     this.appService.submitTerminationRequest(data);
     this.requestForm.reset();
     this._snackBar.openFromComponent(RequestComponent, {

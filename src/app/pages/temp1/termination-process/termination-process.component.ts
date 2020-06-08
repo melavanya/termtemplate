@@ -1,81 +1,54 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, Input,OnChanges, SimpleChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EmployeeDetails } from '../../table-data';
+import { EmployeeDetails } from '../../../table-data';
 import { AppService } from 'src/app/app.service';
+import * as lod from 'lodash';
 
 
 @Component({
-  selector: 'app-temp2',
-  templateUrl: './temp2.page.html',
-  styleUrls: ['./temp2.page.scss'],
+  selector: 'app-termination-process',
+  templateUrl: './termination-process.component.html',
+  styleUrls: ['./termination-process.component.scss'],
 })
-export class Temp2Page implements OnInit {
+export class TerminationProcessComponent implements OnInit, OnChanges {
+  @Input('index') index: number;
 
-  displayedColumns: string[] = ['empName', 'empID', 'empJobTitle', 'empReportsTo', 'empEndDate','reason', 'status'];
+  displayedColumns: string[] = ['initiate','empName', 'empID', 'empJobTitle', 'empReportsTo', 'empEndDate','reason', 'status'];
   dataSource = new MatTableDataSource<EmployeeDetails>();
-  login: string = 'HR';
-  employees: EmployeeDetails[] = [];
+  employees = [];
   allStepDetails: Array<any> = [];
-  loginStepDetails: Array<any> = [];
-
-
+  
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(public dialog: MatDialog, private appService: AppService) { }
 
   ngOnInit() {
     this.createTable();
   }
+  ngOnChanges(changes: SimpleChanges) {
+    this.createTable();  
+  }
 
   createTable() {
-    this.dataSource.data = [];
-    this.loginStepDetails = [];
-    let empDetails = [];
-    this.appService.getEmployees().subscribe(employees => this.employees = employees);
+    this.appService.getApprovedEmployees().subscribe(employees => this.employees = employees);
     this.appService.getStepDetails().subscribe(stepDetails => this.allStepDetails = stepDetails);
 
-      this.allStepDetails.forEach(step => {
-        if (step.dept === this.login) {
-          this.loginStepDetails.push(step);
-        }
-      });
-      this.employees.forEach(employee => {
-        if (employee[this.login].status !== 'Complete') {
-          empDetails.push(employee);
-        }
-      });
-    
-    this.dataSource.data = empDetails;
+    this.dataSource.data = this.employees;
     this.dataSource.paginator = this.paginator;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  loginChange() {
-    this.dataSource.data = [];
-    this.loginStepDetails = [];
-    let empDetails = [];
-      this.allStepDetails.forEach(step => {
-        if (step.dept === this.login) {
-          this.loginStepDetails.push(step);
-        }
-      });
-      this.employees.forEach(employee => {
-        if (employee[this.login].status !== 'Complete') {
-          empDetails.push(employee);
-        }
-      });
-    
-    this.dataSource.data = empDetails;
-    this.dataSource.paginator = this.paginator;
+  initiateProcess(empID, event) {
+    this.appService.initiateTerminationProcess(empID, event.checked);
   }
+
 
   selectRow(row) {
     this.appService.getTerminationProcessDetails(row.empID).subscribe(result => {
-      this.loginStepDetails.forEach(step => {
+      this.allStepDetails.forEach(step => {
         if (result.stepID.length !== 0 && result.stepID.includes(step.stepID)) {
           step.select = true;
           step.activity = result.activity;
@@ -87,11 +60,13 @@ export class Temp2Page implements OnInit {
         }
       });
     });
-    let dialogRef = this.dialog.open(DetailsModal, {
+    if (this.employees[lod.findIndex(this.employees, ['empID', row.empID])].initiate) {
+      let dialogRef = this.dialog.open(DetailsModal, {
       width: '600px',
-      data: { row: row, steps: this.loginStepDetails, login: this.login }
-    });
-    dialogRef.afterClosed().subscribe(() => this.createTable());
+      data: { row: row, steps: this.allStepDetails }
+      });
+      dialogRef.afterClosed().subscribe(() => this.createTable());
+    }
   }
 
 }
@@ -112,7 +87,6 @@ export class DetailsModal {
   empID: number;
   stepDetails: [];
   selectedSteps = [];
-  login: string;
   status: string;
   constructor(
     private appService: AppService,
@@ -120,7 +94,6 @@ export class DetailsModal {
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.empName = this.data.row.empName;
     this.empID = this.data.row.empID;
-    this.login = this.data.login;
     this.stepDetails = this.data.steps;
     this.status = this.data.row.SUPER.status;
   }
@@ -154,7 +127,7 @@ export class DetailsModal {
     this.dialogRef.close();
   }
   onComplete() {
-    this.appService.loginCompleteTerminationProcessDetails(this.empID, this.login);
+    this.appService.completeTerminationProcessDetails(this.empID);
     this.dialogRef.close();
   }
 }

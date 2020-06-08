@@ -1,0 +1,21 @@
+<mat-dialog-content>
+    <mat-card>
+        <h2 align="center">Termination Request</h2>
+      
+        <h4>Employee: {{empData.empName}}</h4>
+      
+      <mat-card-subtitle>
+        <p>Badge ID - {{empData.empID}}</p>
+        <p>Reason - {{empData.reason}}</p>
+      </mat-card-subtitle>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary"
+          (click)="onApprove()">Approve</button>
+          <button mat-raised-button color="warn"
+          (click)="onDeny()">Decline</button>
+          <button mat-raised-button color="secondary"
+          (click)="NothanksClick()">Cancel</button>
+  
+      </mat-card-actions>
+</mat-card>
+</mat-dialog-content>

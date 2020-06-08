@@ -16,7 +16,9 @@ export interface TerminationProcessDetils {
     stepID: Array<number>;
     completedBy: string;
     activity: any;
- }
+}
+ 
+export const Job_Titles = ['Supervisor', 'Manager', 'Lead', 'Tech2', 'Admin2', 'Planner1', 'MHTech2'];
   
 export const EmployeeData: EmployeeDetails[] = [
     { empName: 'Marleen Matlin', empID: 909100, empJobTitle: 'Supervisor', empReportsTo: 'Derek Fogge', empEndDate: 'June 19, 2020', reason: 'Resignation', SUPER: { status: 'Initiated', color: 'black'}, IT: { status:'Initiated',color:'black'},HR: {status:'Initiated',color:'black'} },
@@ -46,6 +48,14 @@ export interface StepDetails {
     stepDesc: string;
     dept: string;
     active: boolean;
+}
+export interface RequestEmpData {
+    empName: string;
+    empID: number;
+    empReportsTo: string;
+    reason: string;
+    empEndDate: string;
+    approved: string;
 }
 export const StepData: StepDetails[] = [
     { stepID: 1, stepDesc: 'Disable Badge', dept:'HR', select:false, active:true },

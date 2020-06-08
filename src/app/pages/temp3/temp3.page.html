@@ -19,7 +19,7 @@
   
         <mat-form-field>
           <mat-label>Supervisor Name</mat-label>
-          <input matInput formControlName="supName">
+          <input matInput formControlName="empReportsTo">
         </mat-form-field>
         <br>
         <mat-form-field>
@@ -44,7 +44,7 @@
         <br>
         <mat-form-field>
           <mat-label>End Date</mat-label>
-          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="endDate">
+          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="empEndDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

@@ -1,0 +1,45 @@
+<style>
+    .example-button-row button {
+      display: table-cell;
+      margin-right: 8px;
+    }
+    .mat-card  {
+      box-shadow: none;
+    }
+    .mat-form-field {
+      width: 100%;
+    }
+        </style>
+    <mat-dialog-content>
+        <mat-card>
+    
+           <h3>Add a New Step</h3>
+    
+            <mat-card-content>
+                <mat-form-field>
+                  <mat-label> Step Description</mat-label>
+                  <input matInput [formControl]="newstep">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <mat-label>Department</mat-label>
+                    <mat-select [formControl]="dept">
+                      <mat-option value="HR">HR</mat-option>
+                      <mat-option value="IT">IT</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+                    <mat-checkbox [(ngModel)]="active">Active</mat-checkbox>
+                    <br>
+                    <br>
+
+    
+                <div class="example-button-row">
+                    <button mat-raised-button (click)="saveNewStep()" color="primary">Save</button>
+                  <button mat-raised-button (click)="NothanksClick()">Cancel</button>
+                </div>
+    
+            </mat-card-content>
+        </mat-card>
+    </mat-dialog-content>
+    
