@@ -145,10 +145,12 @@ export class AppService {
           this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'black';
         }
       }
-      if (lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort())
-        && lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort())) {
+      if ((lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort()) || this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status === 'Complete')
+        && (lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort()) || this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status === 'Complete')) {
         this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.status = 'Complete';
         this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.color = 'accent';
+        this.approvedEmployees[lod.findIndex(this.approvedEmployees, ['empID', employee.empID])].SUPER.status = 'Complete';
+        this.approvedEmployees[lod.findIndex(this.approvedEmployees, ['empID', employee.empID])].SUPER.color = 'accent';
       } else if (employee.stepID.filter(item => ITSteps.includes(item)).length !== 0 || employee.stepID.filter(item => HRSteps.includes(item)).length !== 0) {
         this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.status = 'In progress';
         this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.color = 'primary';

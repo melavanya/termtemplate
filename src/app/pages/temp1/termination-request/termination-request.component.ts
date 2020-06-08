@@ -50,7 +50,7 @@ export class TerminationRequestComponent implements OnInit {
 })
 export class ApprovalModal {
 
-  empData: string;
+  empData;
   constructor(
     private appService: AppService,
     public dialogRef: MatDialogRef<ApprovalModal>,
