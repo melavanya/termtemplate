@@ -116,7 +116,7 @@ export class AppService {
 
     let HRSteps = [];
     let ITSteps = [];
-    this.stepData.forEach(step => {
+    this.stepData.filter(step => step.active).forEach(step => {
       step.dept === 'IT' ? ITSteps.push(step.stepID) : HRSteps.push(step.stepID);
     });
     this.terminationProcessDetails.forEach(employee => {
