@@ -105,7 +105,7 @@ export class AppService {
       this.initiatedEmployeeData.push(Object.assign({}, this.approvedEmployees[lod.findIndex(this.approvedEmployees, ['empID', empID])], {
         IT: { status: 'Initiated', color: 'black' }, HR: { status: 'Initiated', color: 'black' }
       }));
-      
+
     }
     return;
   }
@@ -113,34 +113,40 @@ export class AppService {
 
 
   getEmployees(): Observable<any[]> {
+
     let HRSteps = [];
     let ITSteps = [];
     this.stepData.forEach(step => {
       step.dept === 'IT' ? ITSteps.push(step.stepID) : HRSteps.push(step.stepID);
     });
     this.terminationProcessDetails.forEach(employee => {
-      if (lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort())) {
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'Complete';
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'accent';
-      } else if (employee.stepID.filter(item => HRSteps.includes(item)).length !== 0) {
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'In Progress';
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'primary';
-      } else {
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'Initiated';
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'black';
+
+      if (this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status !== 'Complete') {
+        if (lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort())) {
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'Complete';
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'accent';
+        } else if (employee.stepID.filter(item => HRSteps.includes(item)).length !== 0) {
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'In Progress';
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'primary';
+        } else {
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.status = 'Initiated';
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].HR.color = 'black';
+        }
       }
-      if (lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort())) {
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'Complete';
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'accent';
-      } else if (employee.stepID.filter(item => ITSteps.includes(item)).length !== 0) {
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'In Progress';
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'primary';
-      } else {
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'Initiated';
-        this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'black';
+      if (this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status !== 'Complete') {
+        if (lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort())) {
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'Complete';
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'accent';
+        } else if (employee.stepID.filter(item => ITSteps.includes(item)).length !== 0) {
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'In Progress';
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'primary';
+        } else {
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.status = 'Initiated';
+          this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].IT.color = 'black';
+        }
       }
       if (lod.isEqual(employee.stepID.filter(item => HRSteps.includes(item)).sort(), HRSteps.sort())
-        && lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort()) ) {
+        && lod.isEqual(employee.stepID.filter(item => ITSteps.includes(item)).sort(), ITSteps.sort())) {
         this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.status = 'Complete';
         this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === employee.empID))].SUPER.color = 'accent';
       } else if (employee.stepID.filter(item => ITSteps.includes(item)).length !== 0 || employee.stepID.filter(item => HRSteps.includes(item)).length !== 0) {
@@ -195,10 +201,9 @@ export class AppService {
     this.approvedEmployees[lod.findIndex(this.approvedEmployees, ['empID', empID])].SUPER.status = 'Complete';
     this.approvedEmployees[lod.findIndex(this.approvedEmployees, ['empID', empID])].SUPER.color = 'accent';
 
-   this.getEmployees();
+    this.getEmployees();
     return;
   }
-
   loginCompleteTerminationProcessDetails(empID, login) {
     if (login === "IT") {
       this.initiatedEmployeeData[lod.findKey(this.initiatedEmployeeData, (emp: any) => (emp.empID === empID))].IT.status = 'Complete';
