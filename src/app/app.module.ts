@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { SharedModuleModule } from './shared-module/shared-module.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserModule, IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    SharedModuleModule
   ],
   providers: [
     StatusBar,
